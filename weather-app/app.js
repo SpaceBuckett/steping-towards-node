@@ -4,8 +4,14 @@ const url = 'http://api.weatherstack.com/current?access_key=507911120bed9261a377
 
 request({ url: url, json: true }, (error, response) => {
 
-    console.log("It is currently " + response.body.current.temperature + " degress out. There are " + response.body.current.precip + "% chances of rain.");
+    if (error) {
+        console.log('Failed to connect to the weather service');
+    } else if (response.body.error) {
+        console.log('Failed to find the location')
+
+    } else {
+        console.log("It is currently " + response.body.current.temperature + " degress out. There are " + response.body.current.precip + "% chances of rain.");
+    }
 })
 
 
-// It is currently 58 degress out. There are 0% changes of rain.
